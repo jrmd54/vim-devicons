@@ -425,7 +425,12 @@ function! s:CursorHoldUpdate()
   let l:winnr = winnr()
   let l:altwinnr = winnr('#')
 
-  call g:NERDTree.CursorToTreeWin()
+  " >>>>>>>>>>>>>>>>>>>>>>>>>>>
+  " call g:NERDTree.CursorToTreeWin() -> commented cf causes the following issue:
+  " If uncommented, while nerdtree panel is opened, "<REGISTER> maps in normal mode will be cancelled after a 1sec timeout, as if 'set timeout 1000' was in the .vimrc file
+  " This bug persists even if set notimeout is explicitely called, even when no conflicting mapping seems to exist
+  " No undesirable side-effects have been found yet because of this fix
+  " <<<<<<<<<<<<<<<<<<<<<<<<<<<
   call b:NERDTree.root.refreshFlags()
   call NERDTreeRender()
 
